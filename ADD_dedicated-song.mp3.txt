@@ -1,0 +1,2 @@
+Place your own MP3 in this folder and name it exactly dedicated-song.mp3.
+Your special song. It replaces the opening background music.

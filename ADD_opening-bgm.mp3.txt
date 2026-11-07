@@ -1,0 +1,2 @@
+Place your own MP3 in this folder and name it exactly opening-bgm.mp3.
+Loops from nickname entry until your dedicated song begins.

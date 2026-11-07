@@ -1,0 +1,3 @@
+Place your own MP3 in this folder and name it exactly fingerprint-bgm.mp3.
+Starts when the fingerprint page opens.
+
