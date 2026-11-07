@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Little Universe ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, serif;
+      color: white;
+      background: radial-gradient(circle at top, #302080, #09051f 75%);
+      overflow-x: hidden;
+    }
+
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding: 35px 20px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    .panel {
+      width: 100%;
+      max-width: 650px;
+      padding: 35px 25px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 25px;
+      background: rgba(255,255,255,.07);
+      box-shadow: 0 0 40px rgba(135,90,255,.15);
+      backdrop-filter: blur(12px);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 7vw, 3.5rem);
+      margin: 20px 0;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+    }
+
+    p {
+      line-height: 1.8;
+    }
+
+    input {
+      width: 90%;
+      max-width: 350px;
+      padding: 15px;
+      border: 1px solid #c7a9ff;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 17px;
+      margin: 15px 0;
+    }
+
+    button {
+      padding: 13px 25px;
+      margin: 10px;
+      border: none;
+      border-radius: 25px;
+      background: #e8c9ff;
+      color: #28134c;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    button:hover {
+      transform: scale(1.06);
+      background: white;
+    }
+
+    .secondary {
+      background: #fff;
+    }
+
+    .choice {
+      display: block;
+      width: 85%;
+      max-width: 320px;
+      margin: 15px auto;
+    }
+
+    .choice.selected {
+      background: #ffb6d9;
+      outline: 2px solid white;
+    }
+
+    #noBtn, #promiseNoBtn {
+      position: relative;
+    }
+
+    .small-text {
+      font-size: 13px;
+      letter-spacing: 2px;
+      opacity: .8;
+    }
+
+    .moon {
+      font-size: 55px;
+      margin: 15px;
+    }
+
+    .lyrics-container {
+      max-height: 55vh;
+      overflow-y: auto;
+      margin: 25px auto;
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.2);
+      scroll-behavior: smooth;
+    }
+
+    .lyrics {
+      font-family: Georgia, "Noto Serif Tamil", serif;
+      font-size: clamp(17px, 4vw, 21px);
+      line-height: 2.1;
+      white-space: pre-line;
+      color: #ffe6f4;
+      text-shadow: 0 0 12px rgba(255,170,220,.3);
+    }
+
+    .fingerprint {
+      font-size: 75px;
+      border: 2px solid #e8c9ff;
+      border-radius: 50%;
+      width: 130px;
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto;
+      background: rgba(255,255,255,.08);
+    }
+
+    .scanning {
+      animation: scan 1s infinite alternate;
+    }
+
+    @keyframes scan {
+      from {
+        box-shadow: 0 0 5px #e8c9ff;
+        transform: scale(1);
+      }
+      to {
+        box-shadow: 0 0 35px #ffb6d9;
+        transform: scale(1.08);
+      }
+    }
+
+    .heart {
+      color: #ff8fc7;
+      font-size: 30px;
+    }
+
+    #nicknameHint, #giftHint, #scanHint {
+      color: #ffd5ec;
+      min-height: 25px;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background music -->
+  <audio id="openingBgm" src="assets/opening-bgm.mp3" loop></audio>
+  <audio id="dedicatedSong" src="assets/dedicated-song.mp3"></audio>
+  <audio id="fingerprintBgm" src="assets/fingerprint-bgm.mp3" loop></audio>
+
+  <!-- 1. Welcome -->
+  <section class="screen active" id="welcome">
+    <div class="panel">
+      <div class="small-text">A LITTLE WORLD MADE JUST FOR YOU ✨</div>
+      <div class="moon">☾</div>
+      <p>A tiny surprise is waiting</p>
+      <h1>Welcome to<br>Our Little Universe... <br>Tell the nickname we say after goodnight</h1>
+      <p>Before entering, tell me something only you know...</p>
+
+      <input id="nickname" type="text" placeholder="Enter the secret name">
+
+      <br>
+      <button id="enterBtn">Enter My Little World ❤️</button>
+      <p id="nicknameHint"></p>
+      <p class="small-text">Made with love • Our Little Universe</p>
+    </div>
+  </section>
+
+  <!-- 2. Love question -->
+  <section class="screen" id="love">
+    <div class="panel">
+      <div class="heart">♥</div>
+      <h1>Bubu...</h1>
+      <h2>Do you love me? 🥺</h2>
+      <button id="yesBtn">YES ❤️</button>
+      <button id="noBtn" class="secondary">NO 🙈</button>
+    </div>
+  </section>
+
+  <!-- 3. Diwali -->
+  <section class="screen" id="diwali">
+    <div class="panel">
+      <div class="moon">🪔</div>
+      <h1>Happy Diwali Bubu!</h1>
+      <p>Thank you Bubu, me too, me too...</p>
+      <h2>I love you so much! ❤️</h2>
+      <p>May our little universe always shine brighter.</p>
+      <div style="font-size:45px">🎆 ✨ 🎇</div>
+      <button id="giftNext">Continue ❤️</button>
+    </div>
+  </section>
+
+  <!-- 4. Gift question -->
+  <section class="screen" id="gift">
+    <div class="panel">
+      <div class="moon">🎁</div>
+      <h1>A Little Gift For You</h1>
+      <h2 id="giftQuestion"></h2>
+
+      <button class="choice" data-choice="Chocolate">🍫 Chocolate</button>
+      <button class="choice" data-choice="Surprise Gift">🎁 Surprise Gift</button>
+      <button class="choice" data-choice="Call or Message Me">❤️ Anything you want, call or message me</button>
+
+      <p id="giftHint"></p>
+    </div>
+  </section>
+
+  <!-- 5. Future promise -->
+  <section class="screen" id="promise">
+    <div class="panel">
+      <div class="moon">💍</div>
+      <h1>One Little Promise...</h1>
+      <h2 id="promiseQuestion"></h2>
+      <button id="okayBtn">OK ❤️</button>
+      <button id="promiseNoBtn" class="secondary">NO 🙈</button>
+    </div>
+  </section>
+
+  <!-- 6. Emotional message -->
+  <section class="screen" id="message">
+    <div class="panel">
+      <div class="moon">❤️</div>
+      <h1>For My Bubu</h1>
+      <p id="promiseMessage"></p>
+      <p class="heart">Forever and always ❤️</p>
+      <button id="songNext">One More Surprise 🎵</button>
+    </div>
+  </section>
+
+  <!-- 7. Dedicated song and lyrics -->
+  <section class="screen" id="song">
+    <div class="panel">
+      <div class="small-text">A SONG JUST FOR YOU ❤️</div>
+      <div class="moon">🎶</div>
+      <h1>Our Little Melody</h1>
+      <p>Every word reminds me of you, Bubu...</p>
+
+      <div class="lyrics-container">
+        <div class="lyrics">
+உன் மெல்லிய குரலால் மயங்கினேன்
+உன் கயல்விழி விழியால் சாகிறேன்
+என் மனம் எங்கோ பறக்கிறதே.
+என் கண்கள் உன்னைப் பார்க்கிறதே..
+
+என்னவளே நீ எங்கே போகிறாய்?
+இனியவளே நீ ஏதோ செய்கிறாய்?
+நெஞ்சுக்குள்ளே நீ தினம் துடிக்கிறாய்
+உயிரே... உயிரே.....
+
+உன் தேன்மொழி பேச்சை நான் தினம் கேட்க,
+உன் மூச்சிக் காற்றில் நான்தினம் முழுக,
+நாம் இடைவெளி இங்கே குறைகிறதே,
+மனம் ஒன்றோடு ஒன்றாய் நெருங்கியதே..
+Bubu....bubu..bubu....
+
+உன் பாதம் போதும் பெண்ணே நான் வாழ,
+உன் கண்கள் போதும் பெண்ணே நான் சாக,
+என் உயிர் துணையே அது நீதானே,
+உன் வழித்துணையே அது நான்தானே...
+
+என்னவளே நீ எங்கே போகிறாய்?
+இனியவளே நீ ஏதோ செய்கிறாய்?
+நெஞ்சுக்குள்ளே நீ தினம் துடிக்கிறாய்
+உயிரே... உயிரே.....
+
+Bubu....bubu......ohhhh.....
+Bubu...bubu....oh bubu.........
+        </div>
+      </div>
+
+      <p class="small-text">LISTEN WITH YOUR HEART ❤️</p>
+      <p>Our song, our memories, our little universe.</p>
+
+      <button id="songFinishedBtn">Continue to Our Surprise ❤️</button>
+    </div>
+  </section>
+
+  <!-- 8. Fingerprint -->
+  <section class="screen" id="fingerprint">
+    <div class="panel">
+      <div class="moon">💞</div>
+      <h1>One Last Little Step</h1>
+      <p>Bubu, place your finger and make our promise official... ❤️</p>
+
+      <div class="fingerprint">☝️</div>
+      <p>Bubu's Fingerprint</p>
+
+      <button id="scanBtn">Place Your Finger ❤️</button>
+      <p id="scanHint">Tap to begin our playful scan.</p>
+    </div>
+  </section>
+
+  <!-- 9. Final reveal -->
+  <section class="screen" id="final">
+    <div class="panel">
+      <div class="moon">💍</div>
+      <h1>Congratulations, Bubu!</h1>
+      <h2>2034 ❤️</h2>
+      <h1>Bubu gets Bubu!</h1>
+      <p>Our little promise, our forever story.</p>
+      <div style="font-size:45px">💖 🥹 💖</div>
+      <p>Forever starts with you.</p>
+      <button id="replayBtn">Relive Our Little Universe ❤️</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
